@@ -295,6 +295,25 @@
       display: block;
     }
 
+    .chat-link-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: #000000;
+      color: #F0E8D5;
+      border: 2px solid #F0E8D5;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 13px;
+      box-shadow: 2px 2px 0px #F0E8D5;
+    }
+
+    .chat-link-btn:hover {
+      background: #F0E8D5;
+      color: #000000;
+    }
+
     /* Footer Credits Box inside Chat */
     .chat-footer-credits {
       text-align: center;
@@ -360,33 +379,21 @@
       dropdownMenu.style.display = 'none';
     });
 
-    // Struttura della conversazione
+    // Struttura della conversazione con le nuove opzioni ordinate e gestite
     const chatTree = {
       start: {
         options: [
-          { label: "I was on another site, clicked a button, and ended up here.", next: "button_error" },
           { label: "I was on your site and got lost.", next: "site_lost" },
-          { label: "I was looking for the Cosmic Club", next: "go_cosmic" }
-        ]
-      },
-      button_error: {
-        webmasterText: "Ah, I see! Was it one of these two buttons?",
-        html: `
-          <div style="margin-top: 6px; font-size: 13px;">Click the button you were trying to visit:</div>
-          <div class="buttons-container">
-            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
-            <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
-          </div>
-        `,
-        options: [
-          { label: "Take me back to start", next: "start" }
+          { label: "I was looking for the Cosmic Club", next: "go_cosmic" },
+          { label: "I was on another site, clicked a button, and ended up here.", next: "button_error" }
         ]
       },
       site_lost: {
-        webmasterText: "Oh! In that case, you probably clicked a broken link or typed a wrong address. It's better if you head back to the home page:",
+        webmasterText: "Oh! In that case, you probably clicked a broken link or typed a wrong address. It's better if you head back to the home page. Also, if you found a broken link or a bug on my site, feel free to report it here:",
         html: `
-          <div class="buttons-container">
-            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
+          <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+            <a href="https://cosmic-seea.neocities.org/" class="chat-link-btn"><i class="fa-solid fa-house"></i> Go to Home Page</a>
+            <a href="https://docs.google.com/forms/" target="_blank" class="chat-link-btn"><i class="fa-solid fa-bug"></i> Report a broken link / bug</a>
           </div>
         `,
         options: [
@@ -402,6 +409,22 @@
         `,
         options: [
           { label: "Go back to start", next: "start" }
+        ]
+      },
+      button_error: {
+        webmasterText: "Ah, I see! Was it one of these two buttons? If a button from another site sent you here by mistake, you can let me know which site it was so I can check it or ask them to fix it:",
+        html: `
+          <div style="margin-top: 6px; font-size: 13px;">Click the button you were trying to visit:</div>
+          <div class="buttons-container">
+            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
+            <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
+          </div>
+          <div style="margin-top: 10px;">
+            <a href="https://docs.google.com/forms/" target="_blank" class="chat-link-btn"><i class="fa-solid fa-paper-plane"></i> Report broken external button</a>
+          </div>
+        `,
+        options: [
+          { label: "Take me back to start", next: "start" }
         ]
       }
     };
