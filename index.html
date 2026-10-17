@@ -387,7 +387,6 @@
       start: {
         options: [
           { label: "I was on your site and got lost.", next: "site_lost" },
-          { label: "I was looking for the Cosmic Club", next: "go_cosmic" },
           { label: "I was on another site, clicked a button, and ended up here.", next: "button_error" }
         ]
       },
@@ -397,17 +396,6 @@
           <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
             <a href="https://cosmic-seea.neocities.org/Home" class="chat-link-btn"><i class="fa-solid fa-house"></i> Go to Home Page</a>
             <a href="mailto:seea-star@proton.me" class="chat-link-btn"><i class="fa-solid fa-envelope"></i> Send Email Report</a>
-          </div>
-        `,
-        options: [
-          { label: "Go back to start", next: "start" }
-        ]
-      },
-      go_cosmic: {
-        webmasterText: "Ah, looking for the Cosmic Club? Here is the correct portal to enter:",
-        html: `
-          <div class="buttons-container">
-            <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
           </div>
         `,
         options: [
