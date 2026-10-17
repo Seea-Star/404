@@ -269,7 +269,7 @@
       color: #000000;
     }
 
-    /* Bottoni 88x31 nei messaggi */
+    /* Bottoni nei messaggi */
     .buttons-container {
       display: flex;
       flex-wrap: wrap;
@@ -343,7 +343,6 @@
   </div>
 
   <script>
-    // Avatar scambiati: ora l'utente usa stamp-8 e il webmaster usa stamp-5
     const avatarWebmaster = "https://cosmic-seea.neocities.org/stamp-5.png";
     const avatarUser = "https://cosmic-seea.neocities.org/stamp-8.png";
 
@@ -364,17 +363,16 @@
     // Struttura della conversazione in inglese
     const chatTree = {
       start: {
-        webmasterText: "Oh no! Someone is lost again...",
         options: [
-          { label: "I was on another site, clicked an 88x31 button, and ended up here.", next: "button_error" },
+          { label: "I was on another site, clicked a button, and ended up here.", next: "button_error" },
           { label: "I was looking for the Cosmic Club", next: "go_cosmic" },
           { label: "Just exploring space!", next: "explore" }
         ]
       },
       button_error: {
-        webmasterText: "How did you get lost? Ah, let me guess... was it one of these two buttons?",
+        webmasterText: "Ah, I see! Was it one of these two buttons?",
         html: `
-          <div style="margin-top: 6px; font-size: 13px;">Was it one of these? Click the right one to go home or to the club:</div>
+          <div style="margin-top: 6px; font-size: 13px;">Click the button you were trying to visit:</div>
           <div class="buttons-container">
             <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
             <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
@@ -485,11 +483,21 @@
 
       setTimeout(() => {
         const nextStep = chatTree[nextStepKey];
-        addWebmasterMessage(nextStep.webmasterText, nextStep.html || '');
-
-        setTimeout(() => {
-          addUserPromptBubble(nextStepKey);
-        }, 300);
+        if (nextStepKey === 'start') {
+          // Se la conversazione ricomincia, mostra i due messaggi sequenziali
+          addWebmasterMessage("Oh no! Someone is lost again...");
+          setTimeout(() => {
+            addWebmasterMessage("How did you get here?");
+            setTimeout(() => {
+              addUserPromptBubble('start');
+            }, 300);
+          }, 500);
+        } else {
+          addWebmasterMessage(nextStep.webmasterText, nextStep.html || '');
+          setTimeout(() => {
+            addUserPromptBubble(nextStepKey);
+          }, 300);
+        }
       }, 400);
     }
 
@@ -500,12 +508,16 @@
       });
     }
 
+    // Inizio conversazione con due messaggi consecutivi
     function init404Chat() {
       chatBox.innerHTML = '';
-      addWebmasterMessage(chatTree['start'].webmasterText);
+      addWebmasterMessage("Oh no! Someone is lost again...");
       setTimeout(() => {
-        addUserPromptBubble('start');
-      }, 300);
+        addWebmasterMessage("How did you get here?");
+        setTimeout(() => {
+          addUserPromptBubble('start');
+        }, 300);
+      }, 600);
     }
 
     init404Chat();
