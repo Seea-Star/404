@@ -338,7 +338,7 @@
     <!-- Header -->
     <div class="chat-header">
       <div class="user-info">
-        <a href="https://cosmic-seea.neocities.org/" class="back-btn" title="Back Home"><i class="fa-solid fa-chevron-left"></i></a>
+        <a href="https://cosmic-seea.neocities.org/Home" class="back-btn" title="Back Home"><i class="fa-solid fa-chevron-left"></i></a>
         <div class="avatar">
           <img src="https://cosmic-seea.neocities.org/stamp-5.png" alt="Cosmic System" onerror="this.style.display='none'; this.parentNode.innerText='CS';">
         </div>
@@ -351,8 +351,11 @@
         <button class="menu-btn" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
         <div class="dropdown-menu" id="dropdownMenu">
           <h4>Quick Nav</h4>
-          <a href="https://cosmic-seea.neocities.org/">🏠 Main Site Home</a>
-          <a href="https://cosmic-seea.neocities.org/CosmicClub">🪐 Cosmic Club</a>
+          <a href="https://cosmic-seea.neocities.org/Home">Main Site Home</a>
+          <a href="https://cosmic-seea.neocities.org/CosmicClub">Cosmic Club</a>
+          <a href="https://cosmic-seea.neocities.org/Updates">Updates</a>
+          <a href="https://cosmic-seea.neocities.org/AboutMe">About Me</a>
+          <a href="https://cosmic-seea.neocities.org/Webrings">Webrings</a>
         </div>
       </div>
     </div>
@@ -389,11 +392,11 @@
         ]
       },
       site_lost: {
-        webmasterText: "Oh! In that case, you probably clicked a broken link or typed a wrong address. It's better if you head back to the home page. Also, if you found a broken link or a bug on my site, feel free to report it here:",
+        webmasterText: "Oh! In that case, you probably clicked a broken link or typed a wrong address. It's better if you head back to the home page. Also, if you found a broken link on my site, feel free to report it via email at seea-star@proton.me",
         html: `
           <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
-            <a href="https://cosmic-seea.neocities.org/" class="chat-link-btn"><i class="fa-solid fa-house"></i> Go to Home Page</a>
-            <a href="https://docs.google.com/forms/" target="_blank" class="chat-link-btn"><i class="fa-solid fa-bug"></i> Report a broken link / bug</a>
+            <a href="https://cosmic-seea.neocities.org/Home" class="chat-link-btn"><i class="fa-solid fa-house"></i> Go to Home Page</a>
+            <a href="mailto:seea-star@proton.me" class="chat-link-btn"><i class="fa-solid fa-envelope"></i> Send Email Report</a>
           </div>
         `,
         options: [
@@ -412,7 +415,7 @@
         ]
       },
       button_error: {
-        webmasterText: "Ah, I see! Was it one of these two buttons? If a button from another site sent you here by mistake, you can let me know which site it was so I can check it or ask them to fix it:",
+        webmasterText: "Ah, I see! Was it one of these two buttons? If a button from another site sent you here by mistake, you can email me at seea-star@proton.me to let me know which site it was:",
         html: `
           <div style="margin-top: 6px; font-size: 13px;">Click the button you were trying to visit:</div>
           <div class="buttons-container">
@@ -420,7 +423,7 @@
             <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
           </div>
           <div style="margin-top: 10px;">
-            <a href="https://docs.google.com/forms/" target="_blank" class="chat-link-btn"><i class="fa-solid fa-paper-plane"></i> Report broken external button</a>
+            <a href="mailto:seea-star@proton.me" class="chat-link-btn"><i class="fa-solid fa-envelope"></i> Report broken external button</a>
           </div>
         `,
         options: [
@@ -449,7 +452,7 @@
       scrollToBottom();
     }
 
-    // Aggiunge fumetto vuoto con opzioni per l'utente (senza tre puntini iniziali fastidiosi)
+    // Aggiunge fumetto vuoto con opzioni per l'utente
     function addUserPromptBubble(stepKey) {
       const step = chatTree[stepKey];
       const msgDiv = document.createElement('div');
