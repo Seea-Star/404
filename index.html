@@ -360,13 +360,13 @@
       dropdownMenu.style.display = 'none';
     });
 
-    // Struttura della conversazione in inglese
+    // Struttura della conversazione
     const chatTree = {
       start: {
         options: [
           { label: "I was on another site, clicked a button, and ended up here.", next: "button_error" },
-          { label: "I was looking for the Cosmic Club", next: "go_cosmic" },
-          { label: "Just exploring space!", next: "explore" }
+          { label: "I was on your site and got lost.", next: "site_lost" },
+          { label: "I was looking for the Cosmic Club", next: "go_cosmic" }
         ]
       },
       button_error: {
@@ -382,8 +382,19 @@
           { label: "Take me back to start", next: "start" }
         ]
       },
+      site_lost: {
+        webmasterText: "Oh! In that case, you probably clicked a broken link or typed a wrong address. It's better if you head back to the home page:",
+        html: `
+          <div class="buttons-container">
+            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
+          </div>
+        `,
+        options: [
+          { label: "Go back to start", next: "start" }
+        ]
+      },
       go_cosmic: {
-        webmasterText: "Ah, looking for the Cosmic Club? Here is the correct portal to enter the club space:",
+        webmasterText: "Ah, looking for the Cosmic Club? Here is the correct portal to enter:",
         html: `
           <div class="buttons-container">
             <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
@@ -391,17 +402,6 @@
         `,
         options: [
           { label: "Go back to start", next: "start" }
-        ]
-      },
-      explore: {
-        webmasterText: "Well, space is huge! If you want to head back safely to the main station, click here:",
-        html: `
-          <div class="buttons-container">
-            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
-          </div>
-        `,
-        options: [
-          { label: "Restart conversation", next: "start" }
         ]
       }
     };
@@ -484,7 +484,6 @@
       setTimeout(() => {
         const nextStep = chatTree[nextStepKey];
         if (nextStepKey === 'start') {
-          // Se la conversazione ricomincia, mostra i due messaggi sequenziali
           addWebmasterMessage("Oh no! Someone is lost again...");
           setTimeout(() => {
             addWebmasterMessage("How did you get here?");
@@ -508,7 +507,6 @@
       });
     }
 
-    // Inizio conversazione con due messaggi consecutivi
     function init404Chat() {
       chatBox.innerHTML = '';
       addWebmasterMessage("Oh no! Someone is lost again...");
