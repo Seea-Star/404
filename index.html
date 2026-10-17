@@ -449,7 +449,7 @@
       scrollToBottom();
     }
 
-    // Aggiunge fumetto vuoto con opzioni per l'utente
+    // Aggiunge fumetto vuoto con opzioni per l'utente (senza tre puntini iniziali fastidiosi)
     function addUserPromptBubble(stepKey) {
       const step = chatTree[stepKey];
       const msgDiv = document.createElement('div');
@@ -463,7 +463,7 @@
         <div class="message-content">
           <div class="sender-name">You</div>
           <div class="message-bubble interactive-bubble" id="promptBubble">
-            <div><i class="fa-solid fa-ellipsis"></i> <i>Click to reply...</i></div>
+            <div><i>Click to reply...</i></div>
             <div class="options-list" id="promptOptions" style="display: none;"></div>
           </div>
         </div>
