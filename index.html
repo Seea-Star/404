@@ -222,7 +222,7 @@
       box-shadow: 2px 2px 0px #555555;
     }
 
-    /* Fumetto speciale per la risposta dell'utente */
+    /* Fumetto interattivo per la risposta dell'utente */
     .sent .interactive-bubble {
       background-color: #111111;
       color: #F0E8D5;
@@ -269,30 +269,30 @@
       color: #000000;
     }
 
-    /* Bottoni di link nei messaggi del Webmaster */
-    .chat-link-btn {
+    /* Bottoni 88x31 nei messaggi */
+    .buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: center;
+    }
+
+    .buttons-container a {
       display: inline-block;
-      margin-top: 8px;
-      padding: 8px 12px;
-      background: #000000;
-      color: #F0E8D5;
-      border: 2px solid #F0E8D5;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 13px;
-      box-shadow: 2px 2px 0px #F0E8D5;
-      transition: transform 0.1s;
+      transition: transform 0.15s ease;
     }
 
-    .chat-link-btn:hover {
-      background: #F0E8D5;
-      color: #000000;
+    .buttons-container a:hover {
+      transform: scale(1.05);
     }
 
-    .chat-link-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 0px 0px 0px #F0E8D5;
+    .buttons-container img {
+      height: 31px;
+      width: 88px;
+      object-fit: contain;
+      border: none;
+      display: block;
     }
 
     /* Footer Credits Box inside Chat */
@@ -321,20 +321,19 @@
       <div class="user-info">
         <a href="https://cosmic-seea.neocities.org/" class="back-btn" title="Back Home"><i class="fa-solid fa-chevron-left"></i></a>
         <div class="avatar">
-          <img src="https://cosmic-seea.neocities.org/stamp-8.png" alt="Webmaster" onerror="this.style.display='none'; this.parentNode.innerText='CS';">
+          <img src="https://cosmic-seea.neocities.org/stamp-5.png" alt="Cosmic-S" onerror="this.style.display='none'; this.parentNode.innerText='CS';">
         </div>
         <div>
-          <span style="font-weight: bold; display: block; font-size: 14px;">Webmaster Cosmic-S [404]</span>
-          <span style="font-size: 11px; color: #F0E8D5; opacity: 0.7;">Signal Lost in Deep Space</span>
+          <span style="font-weight: bold; display: block; font-size: 14px;">Page Not Found [404]</span>
+          <span style="font-size: 11px; color: #F0E8D5; opacity: 0.7;">Cosmic-S System</span>
         </div>
       </div>
       <div class="menu-container">
         <button class="menu-btn" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
         <div class="dropdown-menu" id="dropdownMenu">
-          <h4>404 Quick Nav</h4>
+          <h4>Quick Nav</h4>
           <a href="https://cosmic-seea.neocities.org/">🏠 Main Site Home</a>
           <a href="https://cosmic-seea.neocities.org/CosmicClub">🪐 Cosmic Club</a>
-          <a href="https://seea-star.github.io/Cosmic-S-Stories/">📖 Stories Page</a>
         </div>
       </div>
     </div>
@@ -344,8 +343,9 @@
   </div>
 
   <script>
-    const avatarWebmaster = "https://cosmic-seea.neocities.org/stamp-8.png";
-    const avatarUser = "https://cosmic-seea.neocities.org/stamp-5.png";
+    // Avatar scambiati: ora l'utente usa stamp-8 e il webmaster usa stamp-5
+    const avatarWebmaster = "https://cosmic-seea.neocities.org/stamp-5.png";
+    const avatarUser = "https://cosmic-seea.neocities.org/stamp-8.png";
 
     const chatBox = document.getElementById('chatBox');
     const menuToggle = document.getElementById('menuToggle');
@@ -361,58 +361,49 @@
       dropdownMenu.style.display = 'none';
     });
 
-    // Struttura della conversazione
+    // Struttura della conversazione in inglese
     const chatTree = {
       start: {
-        webmasterText: "Ehi! Ops... dove sei finito? 🛰️ Questa pagina non esiste o il segnale si è perso nello spazio!",
+        webmasterText: "Oh no! Someone is lost again...",
         options: [
-          { label: "Ho cliccato un pulsante da un altro sito!", next: "button_error" },
-          { label: "Cercavo il Cosmic Club", next: "go_cosmic" },
-          { label: "Volevo leggere le Storie", next: "go_stories" },
-          { label: "Mostrami la mappa del sito (Sitemap)", next: "sitemap" }
+          { label: "I was on another site, clicked an 88x31 button, and ended up here.", next: "button_error" },
+          { label: "I was looking for the Cosmic Club", next: "go_cosmic" },
+          { label: "Just exploring space!", next: "explore" }
         ]
       },
       button_error: {
-        webmasterText: "Ahhh capisco! 😅 Probabilmente quel sito aveva un errore nel link del mio pulsante 88x31! Ma niente paura, sei arrivato comunque da me. Dove volevi andare?",
-        options: [
-          { label: "Volevo andare alla Home del sito", next: "go_home" },
-          { label: "Volevo visitare il Cosmic Club!", next: "go_cosmic" },
-          { label: "Mostrami la mappa del sito", next: "sitemap" }
-        ]
-      },
-      go_home: {
-        webmasterText: "Perfetto! Ecco il link diretto per ritornare sano e salvo sulla mia Home Page:",
-        html: `<a href="https://cosmic-seea.neocities.org/" class="chat-link-btn"><i class="fa-solid fa-house"></i> Vai alla Home Page</a>`,
-        options: [
-          { label: "Fammi scegliere un'altra destinazione", next: "start" }
-        ]
-      },
-      go_cosmic: {
-        webmasterText: "Ecco a te la rotta per entrare nel Cosmic Club e navigare tra i pianeti degli esploratori:",
-        html: `<a href="https://cosmic-seea.neocities.org/CosmicClub" class="chat-link-btn"><i class="fa-solid fa-rocket"></i> Entra nel Cosmic Club</a>`,
-        options: [
-          { label: "Torna al menu principale", next: "start" }
-        ]
-      },
-      go_stories: {
-        webmasterText: "Sei un appassionato di racconti spaziali! Ecco la porta per la libreria delle Storie:",
-        html: `<a href="https://seea-star.github.io/Cosmic-S-Stories/" class="chat-link-btn"><i class="fa-solid fa-book-open"></i> Apri le Storie</a>`,
-        options: [
-          { label: "Torna al menu principale", next: "start" }
-        ]
-      },
-      sitemap: {
-        webmasterText: "Ecco qua le coordinate di tutte le stazioni principali del mio sito:",
+        webmasterText: "How did you get lost? Ah, let me guess... was it one of these two buttons?",
         html: `
-          <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
-            <a href="https://cosmic-seea.neocities.org/" class="chat-link-btn"><i class="fa-solid fa-house"></i> Main Home Page</a>
-            <a href="https://cosmic-seea.neocities.org/CosmicClub" class="chat-link-btn"><i class="fa-solid fa-planet-ringed"></i> Cosmic Club Canvas</a>
-            <a href="https://seea-star.github.io/Cosmic-S-Stories/" class="chat-link-btn"><i class="fa-solid fa-book"></i> Cosmic Stories</a>
-            <a href="https://cosmic-s.atabook.org/" target="_blank" class="chat-link-btn"><i class="fa-solid fa-pen-to-square"></i> Guestbook</a>
+          <div style="margin-top: 6px; font-size: 13px;">Was it one of these? Click the right one to go home or to the club:</div>
+          <div class="buttons-container">
+            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
+            <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
           </div>
         `,
         options: [
-          { label: "Ricomincia dall'inizio", next: "start" }
+          { label: "Take me back to start", next: "start" }
+        ]
+      },
+      go_cosmic: {
+        webmasterText: "Ah, looking for the Cosmic Club? Here is the correct portal to enter the club space:",
+        html: `
+          <div class="buttons-container">
+            <a href="https://cosmic-seea.neocities.org/CosmicClub" target="_blank"><img src="https://cosmic-seea.neocities.org/CosmicClubButton.gif" alt="Cosmic Club"></a>
+          </div>
+        `,
+        options: [
+          { label: "Go back to start", next: "start" }
+        ]
+      },
+      explore: {
+        webmasterText: "Well, space is huge! If you want to head back safely to the main station, click here:",
+        html: `
+          <div class="buttons-container">
+            <a href="https://cosmic-seea.neocities.org/" target="_blank"><img src="https://cosmic-seea.neocities.org/button.gif" alt="Cosmic-S"></a>
+          </div>
+        `,
+        options: [
+          { label: "Restart conversation", next: "start" }
         ]
       }
     };
@@ -426,7 +417,7 @@
           <img src="${avatarWebmaster}" alt="Webmaster" onerror="this.style.display='none'; this.parentNode.innerText='CS';">
         </div>
         <div class="message-content">
-          <div class="sender-name">Webmaster Cosmic-S</div>
+          <div class="sender-name">Cosmic-S</div>
           <div class="message-bubble">
             <div>${text}</div>
             ${htmlContent}
@@ -451,7 +442,7 @@
         <div class="message-content">
           <div class="sender-name">You</div>
           <div class="message-bubble interactive-bubble" id="promptBubble">
-            <div><i class="fa-solid fa-ellipsis"></i> <i>Clicca per rispondere...</i></div>
+            <div><i class="fa-solid fa-ellipsis"></i> <i>Click to reply...</i></div>
             <div class="options-list" id="promptOptions" style="display: none;"></div>
           </div>
         </div>
@@ -463,7 +454,6 @@
       const promptBubble = msgDiv.querySelector('#promptBubble');
       const promptOptions = msgDiv.querySelector('#promptOptions');
 
-      // Al click sul fumetto, si mostrano le opzioni
       promptBubble.addEventListener('click', function handlePromptClick(e) {
         if (promptOptions.style.display === 'none') {
           promptOptions.style.display = 'flex';
@@ -471,24 +461,21 @@
         }
       });
 
-      // Genera i bottoni delle opzioni
       step.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'option-choice-btn';
         btn.textContent = opt.label;
         btn.onclick = (e) => {
-          e.stopPropagation(); // Evita il bubbling sul container
+          e.stopPropagation();
           selectUserOption(opt.label, opt.next);
         };
         promptOptions.appendChild(btn);
       });
     }
 
-    // Gestisce la scelta dell'utente
     function selectUserOption(chosenLabel, nextStepKey) {
       const activePromptRow = document.getElementById('activePromptRow');
       if (activePromptRow) {
-        // Trasforma il fumetto provvisorio in un messaggio inviato normale
         const bubble = activePromptRow.querySelector('.message-bubble');
         bubble.classList.remove('interactive-bubble');
         bubble.style.borderStyle = 'solid';
@@ -496,12 +483,10 @@
         activePromptRow.removeAttribute('id');
       }
 
-      // Risposta del Webmaster
       setTimeout(() => {
         const nextStep = chatTree[nextStepKey];
         addWebmasterMessage(nextStep.webmasterText, nextStep.html || '');
 
-        // Nuovo fumetto risposta utente subito sotto
         setTimeout(() => {
           addUserPromptBubble(nextStepKey);
         }, 300);
@@ -515,7 +500,6 @@
       });
     }
 
-    // Avvio conversazione
     function init404Chat() {
       chatBox.innerHTML = '';
       addWebmasterMessage(chatTree['start'].webmasterText);
